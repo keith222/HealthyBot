@@ -111,12 +111,12 @@ class Index{
 //        }else{
 //            //$this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或是輸入 help 查詢。或者等等小編來回答你。';
 //        }
-        
-        $this->send_message($this->message);
+        $this->message_to_reply = $this->message;
+        $this->send_message($this->message_to_reply);
     }
     private function send_message($message_to_reply){
         //API Url
-        $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.self::$access_token;
+        $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.self::$access_token;
         $ch = curl_init($url);
         //send image
 //        if (isset($this->message_image) && !empty($this->message_image)){
