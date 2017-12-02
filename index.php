@@ -148,7 +148,7 @@ class Index{
                 "id":"'.$this->sender.'"
             },
             "message":{
-                "text":"'.$this->message_to_reply.$url.'"
+                "text":"'.$this->message_to_reply.'"
             }
         }';
         //echo $jsonData;
