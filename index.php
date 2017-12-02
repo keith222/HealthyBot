@@ -8,7 +8,7 @@ $index->handle_message();
 class Index{
     
     //tokens
-    private static $access_token = "EAACcOZAMBYLEBACUoaV1mXC2gelb5hXwLgsWDKWSJZBJSeY1tlEmFULyNMfnJZBO6X7JZCoQShQmRMxKojZBbKLhzdXw5ksXshtJ547suQxZAeNsNZAlJMymTYuFS6OUX2K5SsXiPLfUefZCysAtKZCz0ZACdwRrtu7LpfIoZAmcPzcYgZDZD";
+    private static $access_token = "EAACcOZAMBYLEBAD7s3JSKUsNKGfUBSOgqQVX9USD5n747ex8NaMZCzJWPFEoqmDVh6JMpZCoVeKOcuDtZB8MZAlYJKY70FKZCEmzxxZBfBLhUZBlGd60bPJSMqd1VaGfOvx78KPcAtCMmD4xqD28CB0vErjtBKAHsqmQg8JnMgBY7wZDZD";
     private static $verify_token = "healthy-bank-app-chat-bot";
     
     private $sender;
@@ -116,33 +116,33 @@ class Index{
     }
     private function send_message($message_to_reply){
         //API Url
-        $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.self::$access_token;
+        $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.self::$access_token;
         $ch = curl_init($url);
         //send image
-//        if (isset($this->message_image) && !empty($this->message_image)){
-//            $jsonData = '{
-//                "recipient":{
-//                    "id":"'.$this->sender.'"
-//                },
-//                "message":{
-//                    "attachment": {
-//                        "type": "image",
-//                        "payload": {
-//                            "url": "'.$this->message_image.'",
-//                            "is_reusable": true
-//                        }
-//                    }
-//                }
-//            }';
-//            
-//            $jsonDataEncoded = $jsonData;
-//            curl_setopt($ch, CURLOPT_POST, 1);
-//            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-//            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-//            if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
-//                $result = curl_exec($ch);
-//            }
-//        }
+        if (isset($this->message_image) && !empty($this->message_image)){
+            $jsonData = '{
+                "recipient":{
+                    "id":"'.$this->sender.'"
+                },
+                "message":{
+                    "attachment": {
+                        "type": "image",
+                        "payload": {
+                            "url": "'.$this->message_image.'",
+                            "is_reusable": true
+                        }
+                    }
+                }
+            }';
+            
+            $jsonDataEncoded = $jsonData;
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
+                $result = curl_exec($ch);
+            }
+        }
         $jsonData = '{
             "recipient":{
                 "id":"'.$this->sender.'"
