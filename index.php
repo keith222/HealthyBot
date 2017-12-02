@@ -116,7 +116,7 @@ class Index{
     }
     private function send_message($message_to_reply){
         //API Url
-        $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.self::$access_token;
+        $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
         $ch = curl_init($url);
         //send image
         if (isset($this->message_image) && !empty($this->message_image)){
@@ -148,7 +148,7 @@ class Index{
                 "id":"'.$this->sender.'"
             },
             "message":{
-                "text":"'.$this->message_to_reply.'"
+                "text":"'.$this->message_to_reply.$url.'"
             }
         }';
         //echo $jsonData;
