@@ -60,7 +60,8 @@ class Index{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
         }
 
-        $this->send_message($this->message_to_reply);
+        //$this->send_message($this->message_to_reply);
+        $this->send_button_message("我想要");
     }
     
     private function send_button_message($message){
@@ -77,7 +78,7 @@ class Index{
                         "type":"template",
                         "payload":{
                             "template_type":"button",
-                            "text":"我想要...",
+                            "text":"'.$message.'",
                             "buttons":[
                                 {
                                     "type":"postback",
