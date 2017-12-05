@@ -55,29 +55,41 @@ class Index{
             
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
-            
+    
         }else{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
         }
 
         $this->send_message($this->message_to_reply);
     }
-    private function send_message($message_to_reply){
+    
+    private function send_button_message($message){
         //API Url
         $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
         $ch = curl_init($url);
-        //send image
-        if (isset($this->message_image) && !empty($this->message_image)){
-            $jsonData = '{
+        
+        $jsonData = '{
                 "recipient":{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
                     "attachment": {
-                        "type": "image",
-                        "payload": {
-                            "url": "'.$this->message_image.'",
-                            "is_reusable": true
+                        "type":"template",
+                        "payload":{
+                            "template_type":"button",
+                            "text":"我想要...",
+                            "buttons":[
+                                {
+                                    "type":"postback",
+                                    "title":"身體檢測",
+                                    "payload":detection"
+                                },
+                                {
+                                    "type":"postback",
+                                    "title":"找醫療院所",
+                                    "payload":"search"
+                                }
+                            ]
                         }
                     }
                 }
@@ -90,7 +102,13 @@ class Index{
             if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
                 $result = curl_exec($ch);
             }
-        }
+        
+    }
+    
+    private function send_message($message_to_reply){
+        //API Url
+        $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
+        $ch = curl_init($url);
         $jsonData = '{
             "recipient":{
                 "id":"'.$this->sender.'"
@@ -107,6 +125,8 @@ class Index{
         if(!empty($this->input['entry'][0]['messaging'][0]['message']) || !empty($this->input['entry'][0]['messaging'][0]['postback'])){
             $result = curl_exec($ch);
         }
+        
+        $this->send_button_message("我想要");
     }
 }
 ?>
