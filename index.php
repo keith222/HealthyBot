@@ -32,8 +32,8 @@ class Index{
         
         $messagingArray = $this->input['entry'][0]['messaging'][0];
         if(isset($messagingArray['postback'])){
-            if($messagingArray['postback']['payload'] == 'hi'){
-                $this->message = "hi";
+            if($messagingArray['postback']['payload'] == 'healthybot'){
+                $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
             }
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
