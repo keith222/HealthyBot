@@ -83,7 +83,7 @@ class Index{
                                 {
                                     "type":"postback",
                                     "title":"身體檢測",
-                                    "payload":detection"
+                                    "payload":"detection"
                                 },
                                 {
                                     "type":"postback",
