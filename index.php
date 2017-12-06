@@ -34,6 +34,10 @@ class Index{
         if(isset($messagingArray['postback'])){
             if($messagingArray['postback']['payload'] == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
+                
+            }else if($messagingArray['postback']['payload'] == 'healthybot'){
+                $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
+                
             }
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
@@ -41,17 +45,12 @@ class Index{
     }
     
     public function handle_message(){
-        if(preg_match('[戰績|上半季|下半季]', strtolower($this->message))) {
-            // league rank
-            $season = 0;
-            if(preg_match('[上半季]', strtolower($this->message))){
-                $season = 1;
-            }else if(preg_match('[下半季]', strtolower($this->message))){
-                $season = 2;
-            }
-            $rank = new Rank();
-            $this->message_to_reply = $rank->get_rank_data($season);
-            $rank = null;
+        if(preg_match('[/]', strtolower($this->message))) {
+            $heightWeight =  explode('/',$this->message);
+            $bmi = new BMI($heightWeight[0], $heightWeight[0]);
+            
+            $this->message_to_reply = $bmi->get_bmi();
+            $bmi = null;
             
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
@@ -127,7 +126,7 @@ class Index{
             $result = curl_exec($ch);
         }
         
-        $this->send_button_message("我想要");
+        $this->send_button_message("我想要...");
     }
 }
 ?>
