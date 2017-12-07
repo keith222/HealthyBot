@@ -48,10 +48,10 @@ class Index{
     }
     
     public function handle_message(){
-        if(!empty($this->payload)){
-            $this->send_message($this->message);
-            return;
-        }
+//        if(!empty($this->payload)){
+//            $this->send_message($this->message);
+//            return;
+//        }
         
         if(preg_match('/^[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
             $heightWeight =  explode('/',$this->message);
