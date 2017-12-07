@@ -42,6 +42,7 @@ class Index{
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
         }
+        $this->message = $messagingArray['message']['text'].";".$messagingArray['postback']['payload'];
     }
     
     public function handle_message(){
