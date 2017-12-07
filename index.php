@@ -2,6 +2,7 @@
 //error_reporting(E_ALL);
 //ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
+require_once('bmi.php');
 
 $index = new Index();
 $index->handle_message();
@@ -42,7 +43,7 @@ class Index{
                 $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
             }
         }else if(isset($messagingArray['message'])){
-            $this->message = "180/65";//$messagingArray['message']['text'];   
+            $this->message = $messagingArray['message']['text'];   
         }
         
     }
