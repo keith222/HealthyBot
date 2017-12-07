@@ -45,7 +45,7 @@ class Index{
     }
     
     public function handle_message(){
-        if(preg_match('[/]', strtolower($this->message))) {
+        if(preg_match('/[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
             $heightWeight =  explode('/',$this->message);
             $bmi = new BMI($heightWeight[0], $heightWeight[0]);
             

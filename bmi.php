@@ -16,6 +16,15 @@ class BMI() {
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $data = curl_exec($ch);
+        $data = (array)json_decode($data,true);
+        curl_close($ch);
+        
+        if(empty($data)){
+            return "很抱歉,找不到相關服務及資料!";
+        } else {
+            return $data["res"];
+        }
     }
 }
 ?>
