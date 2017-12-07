@@ -42,16 +42,16 @@ class Index{
                 $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
             }
         }else if(isset($messagingArray['message'])){
-            $this->message = $messagingArray['message']['text'];   
+            $this->message = "180/65";//$messagingArray['message']['text'];   
         }
         
     }
     
     public function handle_message(){
-//        if(!empty($this->payload)){
-//            $this->send_message($this->message);
-//            return;
-//        }
+        if(!empty($this->payload)){
+            $this->send_message($this->message);
+            return;
+        }
         
         if(preg_match('/^[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
             $heightWeight =  explode('/',$this->message);
