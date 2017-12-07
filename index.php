@@ -42,7 +42,7 @@ class Index{
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
         }
-        $this->message = $messagingArray['message']['text'].";".$messagingArray['postback']['payload'];
+        
     }
     
     public function handle_message(){
@@ -60,6 +60,7 @@ class Index{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
         }
 
+        $this->message = $messagingArray['message']['text'].";".$messagingArray['postback']['payload'];
         $this->send_message($this->message_to_reply);
         
     }
