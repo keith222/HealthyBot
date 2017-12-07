@@ -35,7 +35,7 @@ class Index{
             if($messagingArray['postback']['payload'] == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
                 
-            }else if($messagingArray['postback']['payload'] == 'healthybot'){
+            }else if($messagingArray['postback']['payload'] == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
                 
             }
@@ -126,7 +126,9 @@ class Index{
             $result = curl_exec($ch);
         }
         
-        $this->send_button_message("我想要...");
+        if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot'){
+            $this->send_button_message("我想要...");
+        }
     }
 }
 ?>
