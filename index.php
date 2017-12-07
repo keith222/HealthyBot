@@ -16,6 +16,7 @@ class Index{
     private $message_image;
     private $message_to_reply;
     private $input;
+    private $payload;
     
     public function __construct(){
         $hub_verify_token = null;
@@ -32,12 +33,13 @@ class Index{
         
         $messagingArray = $this->input['entry'][0]['messaging'][0];
         if(isset($messagingArray['postback'])){
-            if($messagingArray['postback']['payload'] == 'healthybot'){
+            $this->payload = $messagingArray['postback']['payload'];
+            
+            if($this->payload == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
                 
-            }else if($messagingArray['postback']['payload'] == 'detection'){
+            }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
-                
             }
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
@@ -46,6 +48,11 @@ class Index{
     }
     
     public function handle_message(){
+        if(!empty($this->payload)){
+            $this->send_message($this->message);
+            return
+        }
+        
         if(preg_match('/^[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
             $heightWeight =  explode('/',$this->message);
             $bmi = new BMI($heightWeight[0], $heightWeight[1]);
@@ -60,7 +67,7 @@ class Index{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
         }
 
-        $this->message_to_reply = $this->input['entry'][0]['messaging'][0]['message']['text'].";".$this->input['entry'][0]['messaging'][0]['postback']['payload'];
+        //$this->message_to_reply = $this->input['entry'][0]['messaging'][0]['message']['text'].";".$this->input['entry'][0]['messaging'][0]['postback']['payload'];
         $this->send_message($this->message_to_reply);
         
     }
