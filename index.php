@@ -40,7 +40,7 @@ class Index{
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
                 
             }else if($this->payload == 'detection'){
-                $this->message = "請輸入身高及體重進行檢測吧!e.g.180/65";
+                $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
             }
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
