@@ -60,7 +60,7 @@ class Index{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
         }
 
-        $this->message_to_reply = $messagingArray['message']['text'].";".$messagingArray['postback']['payload'];
+        $this->message_to_reply = $this->input['entry'][0]['messaging'][0]['message']['text'].";".$this->input['entry'][0]['messaging'][0]['postback']['payload'];
         $this->send_message($this->message_to_reply);
         
     }
