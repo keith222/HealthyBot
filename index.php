@@ -41,6 +41,12 @@ class Index{
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
+                
+            }else if($this->payload == 'search'){
+                $this->message = "您可以直接輸入城市、區域或醫療院所名稱進行查詢! 格式：城市,區域,醫院名稱";
+                
+            }else if($this->payload == 'cancer'){
+                $this->message = "請依格式輸入：性別-年齡-??-??";
             }
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
@@ -60,15 +66,38 @@ class Index{
             
             $this->message_to_reply = $bmi->get_bmi();
             $bmi = null;
+        }else if (preg_match('/.,/', strtolower($this->message))) {
+            $clinicInfo = explode(',', $this->message);
             
+            if(empty($clinicInfo[0])) $clinicInfo[0] = "";
+            if(empty($clinicInfo[1])) $clinicInfo[1] = "";
+            if(empty($clinicInfo[2])) $clinicInfo[2] = "";
+            
+            $clinic = new Clinic($clinicInfo[0],$clinicInfo[1],$clinicInfo[2]);
+            $clinicInfo = $clinic->get_clinic_info();
+            
+            foreach($clinicInfo as $value){
+                $this->message_to_reply .= $value[0].'\\n'.$value[1].'\\n'.$value[2].'\\n\\n';
+            }
+            
+            $clinic = null;
+        }else if(preg_match('[-]', strtolower($this->message))){
+            $cancerInfo = explode('-', $this->message);
+            
+            if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[1])) {
+                $this->message_to_reply = "輸入錯誤，請重新輸入。或是輸入hi重新開始";
+            }else {
+                $cancer = new Cancer($clinicInfo[0],$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
+                $this->message_to_reply = $cancer->get_cancer_info();
+                $cancer = null;
+            }
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
-    
+            $this->send_button_message("我想要...");
         }else{
-            $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。';
+            $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。或是輸入hi重新開始';
         }
 
-        //$this->message_to_reply = $this->input['entry'][0]['messaging'][0]['message']['text'].";".$this->input['entry'][0]['messaging'][0]['postback']['payload'];
         $this->send_message($this->message_to_reply);
         
     }
@@ -98,6 +127,11 @@ class Index{
                                     "type":"postback",
                                     "title":"找醫療院所",
                                     "payload":"search"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "癌症機率",
+                                    "payload": "cancer"
                                 }
                             ]
                         }
