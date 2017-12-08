@@ -80,11 +80,13 @@ class Index{
             $clinicInfo = $clinic->get_clinic_info();
             
             foreach($clinicInfo as $value){
-                $this->message_to_reply .= $value[0].'\\n'.$value[1].'\\n'.$value[2].'\\n\\n';
+                $this->message_to_reply = $value[0].'\\n'.$value[1].'\\n'.$value[2].'\\n\\n';
+                $this->send_message($this->message_to_reply);
             }
             
             $clinic = null;
-            $this->isEnd = true;
+            $this->send_button_message("我想要...");
+            return;
         }else if(preg_match('[-]', strtolower($this->message))){
             $cancerInfo = explode('-', $this->message);
             
