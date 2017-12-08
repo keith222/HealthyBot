@@ -3,6 +3,8 @@
 //ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
 require_once('bmi.php');
+require_once('clinic.php');
+require_once('cancer.php');
 
 $index = new Index();
 $index->handle_message();
