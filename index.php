@@ -20,6 +20,7 @@ class Index{
     private $message_to_reply;
     private $input;
     private $payload;
+    private $isEnd = false;
     
     public function __construct(){
         $hub_verify_token = null;
@@ -83,6 +84,7 @@ class Index{
             }
             
             $clinic = null;
+            $this->isEnd = true;
         }else if(preg_match('[-]', strtolower($this->message))){
             $cancerInfo = explode('-', $this->message);
             
@@ -92,10 +94,12 @@ class Index{
                 $cancer = new Cancer($clinicInfo[0],$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
                 $this->message_to_reply = $cancer->get_cancer_info();
                 $cancer = null;
+                $this->isEnd = true;
             }
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
-            $this->send_button_message("我想要...");
+            $this->isEnd = true;
+            
         }else{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。或是輸入hi重新開始';
         }
@@ -172,8 +176,9 @@ class Index{
             $result = curl_exec($ch);
         }
         
-        if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot'){
+        if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot' || $this->isEnd == true){
             $this->send_button_message("我想要...");
+            $this->isEnd = false;
         }
     }
 }
