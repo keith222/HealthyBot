@@ -22,7 +22,7 @@ class Index{
     private $input;
     private $payload;
     private $isEnd = false;
-    private $cityArray = ["臺北市","基隆市","新北市","宜蘭縣","新竹市","新竹縣","桃園市","苗栗縣","臺中市","彰化縣","南投縣","嘉義市","嘉義縣","雲林縣","臺南市","高雄市","澎湖縣","屏東縣","臺東縣","花蓮縣","金門縣","連江縣"];
+    private $cityArray = ["臺北","新北","宜蘭","新竹","桃園","苗栗","臺中","彰化","南投","嘉義","雲林","臺南","高雄","屏東","臺東","花蓮"];
     
     public function __construct(){
         $hub_verify_token = null;
@@ -42,13 +42,12 @@ class Index{
             $this->payload = $messagingArray['postback']['payload'];
             
             if($this->payload == 'healthybot'){
-                $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
+                $this->message = "Hi!\\n歡迎來到健康機器人，我可以把關你的健康狀態，快點選服務項目試試吧:";
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
                 
             }else if($this->payload == 'search'){
-                $this->message = "您可以直接輸入或點選城市、區域或醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。";
                 $this->send_city_buttons();
                 
             }else if($this->payload == 'cancer'){
@@ -70,7 +69,7 @@ class Index{
     }
     
     public function handle_message(){
-        if(!empty($this->payload)){
+        if(!empty($this->payload) && $this->payload != "search"){
             $this->send_message($this->message);
             $this->isEnd = ($this->payload == 'healthybot');
             return;
@@ -107,6 +106,7 @@ class Index{
             
             if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[1])) {
                 $this->message_to_reply = "輸入錯誤，請重新輸入。或是輸入hi重新開始";
+                
             }else {
                 $gender = ($clinincInfo[0] == "男") ? 1 : 0;
                 $cancer = new Cancer($gender,$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
@@ -120,7 +120,7 @@ class Index{
             $this->isEnd = true;
             
         }else{
-            $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。或是輸入hi重新開始';
+            $this->message_to_reply = '不好意思，你想表達什麼呢？我不是很懂的說。可以再多給我一點提示嗎？或者等等小編來回答你。或是輸入hi重新開始';
             
         }
 
@@ -143,7 +143,7 @@ class Index{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
-                    "text": "選擇城市",
+                    "text": "您可以直接輸點選城市或輸入區域或醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。",
                     "quick_replies":[{"content_type":"text","title":"test","payload":"臺北市"}]
                 }
             }';
@@ -221,7 +221,6 @@ class Index{
                 "text":"'.$message_to_reply.'"
             }
         }';
-        //echo $jsonData;
         $jsonDataEncoded = $jsonData;
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
@@ -231,7 +230,7 @@ class Index{
         }
         
         if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot' || $this->isEnd == true){
-            $this->send_button_message("我想要...");
+            $this->send_button_message("想了解更多健康資訊嗎?");
             $this->isEnd = false;
         }
     }
