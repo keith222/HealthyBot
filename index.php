@@ -7,7 +7,6 @@ require_once('clinic.php');
 require_once('cancer.php');
 
 $index = new Index();
-$index->handle_message();
 
 class Index{
     
@@ -43,27 +42,31 @@ class Index{
             
             if($this->payload == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人，我可以把關你的健康狀態，\\n快點選服務項目試試吧:";
+                $this->handle_message();
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
+                $this->handle_message();
                 
             }else if($this->payload == 'search'){
                 $this->send_city_buttons();
                 
             }else if($this->payload == 'cancer'){
                 $this->message = "請依格式輸入：性別(男/女)-年齡-S-GPT/ALT-HBeAg";
-
+                $this->handle_message();
             }
             
             foreach($this->cityArray as $value){
                 if($this->payload == $value){
                     $this->message = $value.',';
+                    $this->handle_message();
                     break;
                 }
             }
             
         }else if(isset($messagingArray['message'])){
-            $this->message = $messagingArray['message']['text'];   
+            $this->message = $messagingArray['message']['text'];  
+            $this->handle_message();
         }
         
     }
@@ -72,10 +75,10 @@ class Index{
         if(!empty($this->payload)){
             if($this->payload != "search"){
                 $this->send_message($this->message);
-                $this->isEnd = ($this->payload == 'healthybot');
-            
-                return;
             }
+            $this->isEnd = ($this->payload == 'healthybot');
+            
+            return;
         }
         
         if(preg_match('/^[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
