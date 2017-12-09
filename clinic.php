@@ -9,7 +9,7 @@ class Clinic {
         $this->_city = $city;
         $this->_district = $district;
         $this->_clinicName = $clinicName;
-        $this->_dept = $dept
+        $this->_dept = $dept;
     }
     
     public function get_clinic_info(){
