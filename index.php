@@ -130,7 +130,7 @@ class Index{
             
         }
 
-        $this->send_message($this->message_to_reply);
+        $this->send_message($this->message);
         
     }
     
