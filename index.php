@@ -55,17 +55,9 @@ class Index{
                 $this->message = "請依格式輸入：性別(男/女)-年齡-S-GPT/ALT-HBeAg";
                 $this->handle_message();
             }
-            
-            foreach($this->cityArray as $value){
-                if($this->payload == $value){
-                    $this->message = "/////////";//$value.',';
-                    $this->handle_message();
-                    break;
-                }
-            }
-            
+                        
         }else if(isset($messagingArray['message'])){
-            $this->message = $messagingArray['message']['text']."ftttt";  
+            $this->message = $messagingArray['message']['text'];  
             $this->handle_message();
         }
         
@@ -130,7 +122,7 @@ class Index{
             
         }
 
-        $this->send_message($this->message);
+        $this->send_message($this->message_to_reply);
         
     }
     
@@ -142,9 +134,9 @@ class Index{
         $cityJson = '';
         for($i=0;$i<6;$i++){
             if($i==5){
-                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].'"}';
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"}';
             }else{
-                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].'"},';    
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"},';    
             }
         }
         
