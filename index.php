@@ -22,6 +22,7 @@ class Index{
     private $input;
     private $payload;
     private $isEnd = false;
+    private $cityArray = ["臺北市","基隆市","新北市","宜蘭縣","新竹市","新竹縣","桃園市","苗栗縣","臺中市","彰化縣","南投縣","嘉義市","嘉義縣","雲林縣","臺南市","高雄市","澎湖縣","屏東縣","臺東縣","花蓮縣","金門縣","連江縣"];
     
     public function __construct(){
         $hub_verify_token = null;
@@ -42,16 +43,29 @@ class Index{
             
             if($this->payload == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
+                break;
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
+                break;
                 
             }else if($this->payload == 'search'){
-                $this->message = "您可以直接輸入城市、區域或醫療院所名稱進行查詢! 格式：城市,區域,醫院名稱";
+                $this->message = "您可以直接輸入或點選城市、區域或醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。";
+                $this->send_city_buttons();
+                break;
                 
             }else if($this->payload == 'cancer'){
-                $this->message = "請依格式輸入：性別-年齡-??-??";
+                $this->message = "請依格式輸入：性別(男/女)-年齡-??-??";
+                break;
             }
+            
+            foreach($this->cityArray as $value){
+                if($this->payload == $value){
+                    $this->message = $value.',';
+                    break;
+                }
+            }
+            
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
         }
@@ -97,7 +111,8 @@ class Index{
             if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[1])) {
                 $this->message_to_reply = "輸入錯誤，請重新輸入。或是輸入hi重新開始";
             }else {
-                $cancer = new Cancer($clinicInfo[0],$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
+                $gender = ($clinincInfo[0] == "男") ? 1 : 0;
+                $cancer = new Cancer($gender,$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
                 $this->message_to_reply = $cancer->get_cancer_info();
                 $cancer = null;
                 $this->isEnd = true;
@@ -116,9 +131,7 @@ class Index{
         
     }
     
-    private function get_city_buttons(){
-        $cityArray = ["臺北市","基隆市","新北市","宜蘭縣","新竹市","新竹縣","桃園市","苗栗縣","臺中市","彰化縣","南投縣","嘉義市","嘉義縣","雲林縣","臺南市","高雄市","澎湖縣","屏東縣","臺東縣","花蓮縣","金門縣","連江縣"];
-        
+    private function send_city_buttons(){
         //API Url
         $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
         $ch = curl_init($url);
@@ -142,7 +155,7 @@ class Index{
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            if(!empty($this->input['entry'][0]['messaging'][0]['message']) || !empty($this->input['entry'][0]['messaging'][0]['postback'])){
+            if(!empty($this->input['entry'][0]['messaging'][0]['postback'])){
                 $result = curl_exec($ch);
             }
     }
