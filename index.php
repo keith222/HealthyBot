@@ -43,20 +43,17 @@ class Index{
             
             if($this->payload == 'healthybot'){
                 $this->message = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
-                break;
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
-                break;
                 
             }else if($this->payload == 'search'){
                 $this->message = "您可以直接輸入或點選城市、區域或醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。";
                 $this->send_city_buttons();
-                break;
                 
             }else if($this->payload == 'cancer'){
                 $this->message = "請依格式輸入：性別(男/女)-年齡-??-??";
-                break;
+
             }
             
             foreach($this->cityArray as $value){
