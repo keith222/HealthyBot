@@ -139,9 +139,9 @@ class Index{
         $cityJson = '';
         for($i=0;$i<6;$i++){
             if($i==5){
-                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"}';
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].'"}';
             }else{
-                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"},';    
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].'"},';    
             }
         }
         
