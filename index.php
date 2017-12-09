@@ -133,7 +133,7 @@ class Index{
                             "elements":[
                                 {
                                     "title":"'.$message.'",
-                                    "image_url":"https://healthy-chat-bot-app.herokuapp.com/logo.png",
+                                    "image_url":"https://scontent.ftpe8-1.fna.fbcdn.net/v/t1.0-9/24909898_1536135606454587_3331972124516846547_n.jpg?oh=4b77b65d3410a3b4a829dec94796b12a&oe=5AD11904",
                                     "buttons":[
                                         {
                                             "type":"postback",
