@@ -108,12 +108,12 @@ class Index{
         }else if(preg_match('/.-/', strtolower($this->message))){
             $cancerInfo = explode('-', $this->message);
             
-            if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[3])) {
+            if(!isset($cancerInfo[0]) || !isset($cancerInfo[1]) || !isset($cancerInfo[2]) || !isset($cancerInfo[3])) {
                 $this->message_to_reply = "輸入錯誤，請重新輸入。或是輸入hi重新開始";
                 
             }else {
-                $gender = ($clinincInfo[0] == "男") ? 1 : 0;
-                $cancer = new Cancer($gender,$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
+                $gender = ($cancerInfo[0] == "男") ? 1 : 0;
+                $cancer = new Cancer($gender,$cancerInfo[1],$cancerInfo[2],$cancerInfo[3]);
                 $this->message_to_reply = $cancer->get_cancer_info();
                 $cancer = null;
                 $this->isEnd = true;

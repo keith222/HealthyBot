@@ -9,13 +9,13 @@ class Cancer{
         $this->_gender = $gender;
         $this->_age = $age;
         $this->_sgpt = $sgpt;
-        $this->_hbeag = $hbeagl;
+        $this->_hbeag = $hbeag;
     }
     
     public function get_cancer_info(){
         $url = 'https://healthbot-188011.appspot.com/risk';
         $ch = curl_init($url);
-        $json = '{"gender":'.$this->_gender.',"age":'.$this->_district.',"sgpt":'.$this->_sgpt.',"hbeag":'.$this->_hbeag.'}';
+        $json = '{"gender":'.$this->_gender.',"age":'.$this->_age.',"sgpt":'.$this->_sgpt.',"hbeag":'.$this->_hbeag.'}';
       
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
