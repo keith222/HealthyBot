@@ -52,7 +52,7 @@ class Index{
                 $this->send_city_buttons();
                 
             }else if($this->payload == 'cancer'){
-                $this->message = "請依格式輸入：性別(男/女)-年齡-S-GPT/ALT-HBeAg";
+                $this->message = "請依格式輸入：性別(男/女)-年齡-SGPT-HBeAg";
                 $this->handle_message();
             }
                         
