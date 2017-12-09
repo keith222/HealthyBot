@@ -72,10 +72,10 @@ class Index{
         if(!empty($this->payload)){
             if($this->payload != "search"){
                 $this->send_message($this->message);
-            }
-            $this->isEnd = ($this->payload == 'healthybot');
+                $this->isEnd = ($this->payload == 'healthybot');
             
-            return;
+                return;
+            }
         }
         
         if(preg_match('/^[\d]{1,3}\/[\d]{1,3}/', strtolower($this->message))) {
