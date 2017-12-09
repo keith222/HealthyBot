@@ -134,9 +134,9 @@ class Index{
         $ch = curl_init($url);
         
         $cityJson = '';
-        foreach($cityArray as $value){
-            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
-        }
+//        foreach($cityArray as $value){
+//            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
+//        }
         
         $jsonData = '{
                 "recipient":{
@@ -144,7 +144,7 @@ class Index{
                 },
                 "message":{
                     "text": "選擇城市",
-                    "quick_replies":['.$cityJson.']
+                    "quick_replies":[{"content_type":"text","title":"test","payload":"臺北市"}]
                 }
             }';
             
