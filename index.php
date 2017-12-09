@@ -51,7 +51,7 @@ class Index{
                 $this->send_city_buttons();
                 
             }else if($this->payload == 'cancer'){
-                $this->message = "請依格式輸入：性別(男/女)-年齡-??-??";
+                $this->message = "請依格式輸入：性別(男/女)-年齡-S-GPT/ALT-HBeAg";
 
             }
             
@@ -147,7 +147,7 @@ class Index{
                 },
                 "message":{
                     "text": "請直接點選或輸入城市、區域、醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。",
-                    "quick_replies":[{"content_type":"text","title":"test","payload":"臺北市"}]
+                    "quick_replies":['.$cityJSON.']
                 }
             }';
             
