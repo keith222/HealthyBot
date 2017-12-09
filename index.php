@@ -42,7 +42,7 @@ class Index{
             $this->payload = $messagingArray['postback']['payload'];
             
             if($this->payload == 'healthybot'){
-                $this->message = "Hi!\\n歡迎來到健康機器人，我可以把關你的健康狀態，快點選服務項目試試吧:";
+                $this->message = "Hi!\\n歡迎來到健康機器人，我可以把關你的健康狀態，\\n快點選服務項目試試吧:";
                 
             }else if($this->payload == 'detection'){
                 $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
@@ -69,9 +69,12 @@ class Index{
     }
     
     public function handle_message(){
-        if(!empty($this->payload) && $this->payload != "search"){
-            $this->send_message($this->message);
+        if(!empty($this->payload)){
+            if($this->payload != "search"){
+                $this->send_message($this->message);
+            }
             $this->isEnd = ($this->payload == 'healthybot');
+            
             return;
         }
         
@@ -98,7 +101,7 @@ class Index{
             }
             
             $clinic = null;
-            $this->send_button_message("我想要...");
+            $this->send_button_message("想了解更多健康資訊嗎？");
             return;
             
         }else if(preg_match('[-]', strtolower($this->message))){
@@ -143,7 +146,7 @@ class Index{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
-                    "text": "您可以直接輸點選城市或輸入區域或醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。",
+                    "text": "請直接點選或輸入城市、區域、醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。",
                     "quick_replies":[{"content_type":"text","title":"test","payload":"臺北市"}]
                 }
             }';
