@@ -116,6 +116,37 @@ class Index{
         
     }
     
+    private function get_city_buttons(){
+        $cityArray = ["臺北市","基隆市","新北市","宜蘭縣","新竹市","新竹縣","桃園市","苗栗縣","臺中市","彰化縣","南投縣","嘉義市","嘉義縣","雲林縣","臺南市","高雄市","澎湖縣","屏東縣","臺東縣","花蓮縣","金門縣","連江縣"];
+        
+        //API Url
+        $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
+        $ch = curl_init($url);
+        
+        $cityJson = '';
+        foreach($cityArray as $value){
+            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
+        }
+        
+        $jsonData = '{
+                "recipient":{
+                    "id":"'.$this->sender.'"
+                },
+                "message":{
+                    "text": "選擇城市",
+                    "quick_replies":['.$cityJson.']
+                }
+            }';
+            
+            $jsonDataEncoded = $jsonData;
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            if(!empty($this->input['entry'][0]['messaging'][0]['message']) || !empty($this->input['entry'][0]['messaging'][0]['postback'])){
+                $result = curl_exec($ch);
+            }
+    }
+    
     private function send_button_message($message){
         //API Url
         $url = 'https://graph.facebook.com/v2.11/me/messages?access_token='.self::$access_token;
