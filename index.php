@@ -65,7 +65,7 @@ class Index{
             }
             
         }else if(isset($messagingArray['message'])){
-            $this->message = $messagingArray['message']['text'];  
+            $this->message = $messagingArray['message']['text']."ftttt";  
             $this->handle_message();
         }
         
