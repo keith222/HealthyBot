@@ -8,6 +8,7 @@ require_once('cancer.php');
 
 $index = new Index();
 $index->handle_message();
+
 class Index{
     
     //tokens
@@ -69,6 +70,7 @@ class Index{
             
             $this->message_to_reply = $bmi->get_bmi();
             $bmi = null;
+            
         }else if (preg_match('/.,/', strtolower($this->message))) {
             $clinicInfo = explode(',', $this->message);
             
@@ -87,6 +89,7 @@ class Index{
             $clinic = null;
             $this->send_button_message("我想要...");
             return;
+            
         }else if(preg_match('[-]', strtolower($this->message))){
             $cancerInfo = explode('-', $this->message);
             
@@ -98,12 +101,14 @@ class Index{
                 $cancer = null;
                 $this->isEnd = true;
             }
+            
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = "Hi!\\n歡迎來到健康機器人,在這裡您可以進行簡單的身體檢測或查詢各項醫療院所喔!";
             $this->isEnd = true;
             
         }else{
             $this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或者等等小編來回答你。或是輸入hi重新開始';
+            
         }
 
         $this->send_message($this->message_to_reply);
@@ -123,8 +128,9 @@ class Index{
                     "attachment": {
                         "type":"template",
                         "payload":{
-                            "template_type":"button",
-                            "text":"'.$message.'",
+                            "template_type":"generic",
+                            "title":"'.$message.'",
+                            "image_url":"https://healthy-chat-bot-app.herokuapp.com/logo.png",
                             "buttons":[
                                 {
                                     "type":"postback",
