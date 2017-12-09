@@ -137,8 +137,12 @@ class Index{
         $ch = curl_init($url);
         
         $cityJson = '';
-        foreach($this->cityArray as $value){
-            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
+        for($i=0;$i<6;$i++){
+            if($i==5){
+                $cityJson .= '{"content_type":"text","title":"'.$cityArray[$i].'","payload":"'.$cityArray[$i].'"}';
+            }else{
+                $cityJson .= '{"content_type":"text","title":"'.$cityArray[$i].'","payload":"'.$cityArray[$i].'"},';    
+            }
         }
         
         $jsonData = '{
@@ -146,7 +150,7 @@ class Index{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
-                    "text": "請直接點選或輸入城市、區域、醫療院所名稱進行查詢! 輸入格式：城市,區域,醫院名稱。",
+                    "text": "全台灣的醫療院所我都找的到，放心交給我吧!\\n直接告訴我地區、科別或是診所，或是按這排按鈕來快速輸入吧!\\n輸入格式：城市,區域,醫院名稱。",
                     "quick_replies":['.$cityJSON.']
                 }
             }';
