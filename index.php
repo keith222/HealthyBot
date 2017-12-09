@@ -58,7 +58,7 @@ class Index{
             
             foreach($this->cityArray as $value){
                 if($this->payload == $value){
-                    $this->message = $value.',';
+                    $this->message = "/////////";//$value.',';
                     $this->handle_message();
                     break;
                 }
