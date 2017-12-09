@@ -61,6 +61,7 @@ class Index{
     public function handle_message(){
         if(!empty($this->payload)){
             $this->send_message($this->message);
+            $this->isEnd = ($this->payload == 'healthybot');
             return;
         }
         
@@ -188,7 +189,8 @@ class Index{
         }
         
         if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot' || $this->isEnd == true){
-            $this->send_button_message("我想要...");
+            //$this->send_button_message("我想要...");
+            echo "go"
             $this->isEnd = false;
         }
     }
