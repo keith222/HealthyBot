@@ -22,7 +22,7 @@ class Index{
     private $input;
     private $payload;
     private $isEnd = false;
-    private $cityArray = ["臺北","新北","宜蘭","新竹","桃園","苗栗","臺中","彰化","南投","嘉義","雲林","臺南","高雄","屏東","臺東","花蓮"];
+    private $cityArray = ["臺北市","新北市","桃園市","臺中市","臺南市","高雄市"];
     
     public function __construct(){
         $hub_verify_token = null;
@@ -137,9 +137,9 @@ class Index{
         $ch = curl_init($url);
         
         $cityJson = '';
-//        foreach($cityArray as $value){
-//            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
-//        }
+        foreach($this->cityArray as $value){
+            $cityJson .= '{"content_type":"text","title":"'.$value.'","payload":"'.$value.'"},';
+        }
         
         $jsonData = '{
                 "recipient":{
