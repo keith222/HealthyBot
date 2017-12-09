@@ -107,7 +107,7 @@ class Index{
         }else if(preg_match('[-]', strtolower($this->message))){
             $cancerInfo = explode('-', $this->message);
             
-            if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[1])) {
+            if(empty($cancerInfo[0]) || empty($cancerInfo[1]) || empty($cancerInfo[2]) || empty($cancerInfo[3])) {
                 $this->message_to_reply = "輸入錯誤，請重新輸入。或是輸入hi重新開始";
                 
             }else {
