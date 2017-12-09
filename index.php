@@ -58,6 +58,10 @@ class Index{
                         
         }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];  
+            
+            if(isset($messagingArray['message']['quick_reply']['payload'])){
+                $this->message = $messagingArray['message']['quick_reply']['payload'];
+            }
             $this->handle_message();
         }
         
