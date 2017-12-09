@@ -139,9 +139,9 @@ class Index{
         $cityJson = '';
         for($i=0;$i<6;$i++){
             if($i==5){
-                $cityJson .= '{"content_type":"text","title":"'.$cityArray[$i].'","payload":"'.$cityArray[$i].'"}';
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"}';
             }else{
-                $cityJson .= '{"content_type":"text","title":"'.$cityArray[$i].'","payload":"'.$cityArray[$i].'"},';    
+                $cityJson .= '{"content_type":"text","title":"'.$this->cityArray[$i].'","payload":"'.$this->cityArray[$i].',"},';    
             }
         }
         
@@ -151,7 +151,7 @@ class Index{
                 },
                 "message":{
                     "text": "全台灣的醫療院所我都找的到，放心交給我吧!\\n直接告訴我地區、科別或是診所，或是按這排按鈕來快速輸入吧!\\n輸入格式：城市,區域,醫院名稱。",
-                    "quick_replies":['.$cityJSON.']
+                    "quick_replies":['.$cityJson.']
                 }
             }';
             
@@ -194,7 +194,7 @@ class Index{
                                         },
                                         {
                                             "type": "postback",
-                                            "title": "癌症機率",
+                                            "title": "肝癌機率",
                                             "payload": "cancer"
                                         }
                                     ]
