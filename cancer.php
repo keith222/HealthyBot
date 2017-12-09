@@ -28,7 +28,7 @@ class Cancer{
         if(empty($data)){
             return "很抱歉,找不到相關服務及資料!";
         } else {
-            return "發生機率：".$data["res"];
+            return "你的風險預測，發生機率為：".$data["res"];
         }
     }
 }

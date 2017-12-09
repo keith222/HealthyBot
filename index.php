@@ -49,6 +49,7 @@ class Index{
                 $this->handle_message();
                 
             }else if($this->payload == 'search'){
+                $this->send_message("全台灣的醫療院所我都找的到，放心交給我吧!");
                 $this->send_city_buttons();
                 
             }else if($this->payload == 'cancer'){
@@ -150,7 +151,7 @@ class Index{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
-                    "text": "全台灣的醫療院所我都找的到，放心交給我吧!\\n直接告訴我地區、科別或是診所，或是按這排按鈕來快速輸入吧!\\n輸入格式：城市,區域,醫院名稱,科別。",
+                    "text": "直接告訴我地區、科別或是診所，或是按這排按鈕來快速輸入吧!\\n輸入格式：城市,區域,醫院名稱,科別。",
                     "quick_replies":['.$cityJson.']
                 }
             }';
