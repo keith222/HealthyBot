@@ -129,29 +129,32 @@ class Index{
                         "type":"template",
                         "payload":{
                             "template_type":"generic",
-                            "title":"'.$message.'",
-                            "image_url":"https://healthy-chat-bot-app.herokuapp.com/logo.png",
-                            "buttons":[
+                            "elements":[
                                 {
-                                    "type":"postback",
-                                    "title":"身體檢測",
-                                    "payload":"detection"
-                                },
-                                {
-                                    "type":"postback",
-                                    "title":"找醫療院所",
-                                    "payload":"search"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "癌症機率",
-                                    "payload": "cancer"
+                                    "title":"'.$message.'",
+                                    "image_url":"https://healthy-chat-bot-app.herokuapp.com/logo.png",
+                                    "buttons":[
+                                        {
+                                            "type":"postback",
+                                            "title":"身體檢測",
+                                            "payload":"detection"
+                                        },
+                                        {
+                                            "type":"postback",
+                                            "title":"找醫療院所",
+                                            "payload":"search"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "癌症機率",
+                                            "payload": "cancer"
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     }
-                }
-            }';
+                }';
             
             $jsonDataEncoded = $jsonData;
             curl_setopt($ch, CURLOPT_POST, 1);
