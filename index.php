@@ -45,7 +45,7 @@ class Index{
                 $this->handle_message();
                 
             }else if($this->payload == 'detection'){
-                $this->message = "請輸入身高及體重進行檢測吧! e.g.180/65";
+                $this->message = "來，告訴我你的身高及體重吧，我不會說出去的! e.g.180/65";
                 $this->handle_message();
                 
             }else if($this->payload == 'search'){
@@ -90,8 +90,9 @@ class Index{
             if(empty($clinicInfo[0])) $clinicInfo[0] = "";
             if(empty($clinicInfo[1])) $clinicInfo[1] = "";
             if(empty($clinicInfo[2])) $clinicInfo[2] = "";
+            if(empty($clinicInfo[3])) $clinicInfo[3] = "";
             
-            $clinic = new Clinic($clinicInfo[0],$clinicInfo[1],$clinicInfo[2]);
+            $clinic = new Clinic($clinicInfo[0],$clinicInfo[1],$clinicInfo[2],$clinicInfo[3]);
             $clinicInfo = $clinic->get_clinic_info();
             
             foreach($clinicInfo as $value){

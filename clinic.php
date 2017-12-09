@@ -3,17 +3,19 @@ class Clinic {
     public $_district;
     public $_city;
     public $_clinicName;
+    public $_dept;
     
-    public function __construct($city,$district,$clinicName){
+    public function __construct($city,$district,$clinicName,$dept){
         $this->_city = $city;
         $this->_district = $district;
         $this->_clinicName = $clinicName;
+        $this->_dept = $dept
     }
     
     public function get_clinic_info(){
         $url = 'https://healthbot-188011.appspot.com/clinic';
         $ch = curl_init($url);
-        $json = '{"city":"'.$this->_city.'","dist":"'.$this->_district.'","clinicName":"'.$this->_clinicName.'"}';
+        $json = '{"city":"'.$this->_city.'","dist":"'.$this->_district.'","clinicName":"'.$this->_clinicName.'","dept":"'.$this->_dept.'"}';
       
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
