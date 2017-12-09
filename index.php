@@ -155,7 +155,8 @@ class Index{
                             ]
                         }
                     }
-                }';
+                }
+            }';
             
             $jsonDataEncoded = $jsonData;
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -189,8 +190,7 @@ class Index{
         }
         
         if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'healthybot' || $this->isEnd == true){
-            //$this->send_button_message("我想要...");
-            echo "go"
+            $this->send_button_message("我想要...");
             $this->isEnd = false;
         }
     }
